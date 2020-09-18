@@ -1,0 +1,68 @@
+package atividadeAvaliativa;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+
+
+
+@Entity
+public class fabricante {
+    @Id
+    private String id;
+    private String nome;
+    @OneToMany (cascade = CascadeType.ALL)
+    @JoinColumn(name="fabricante_id")
+    private List <modelo> modelo = new ArrayList<>();
+     
+    @OneToOne
+    @JoinColumn(name = "nissan_gtr_id", table = "fabricante")
+    private modelo gtr ;
+    
+    
+    public fabricante() {
+    	this.id=UUID.randomUUID().toString();
+    }
+    
+    public fabricante(String nome) {
+    	this();
+    	this.nome = nome;
+		
+	}
+
+    public void setNissanGtr(modelo gtr ) {
+    	this.gtr = gtr;
+		
+	}
+    
+    public void addModelo(modelo novo) {
+		this.modelo.add(novo);
+		
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+    
+	public String getId() {
+		return id;
+	}
+    
+	public List<modelo> getmodelo(){
+    	return modelo;
+    }
+
+
+}
