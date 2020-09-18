@@ -1,0 +1,39 @@
+package atividadeAvaliativa;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+@Transactional
+public class ExecutarSimplificado {
+	
+	@Autowired
+    private EntityManager ex;
+    
+	public void executarSimplificado () {
+		ex.createQuery("delete from fabricante").executeUpdate();
+		ex.createQuery("delete from modelo").executeUpdate();
+		
+		fabricante Nissan = new fabricante ("Nissan");
+		
+		modelo sentra = new modelo ("sentra");
+		modelo versa = new modelo ("versa");
+		modelo kicks = new modelo ("kicks");
+		modelo gtr = new modelo ("gtr");
+		
+		Nissan.addModelo(sentra);
+		Nissan.addModelo(versa);
+		Nissan.addModelo(kicks);
+		Nissan.addModelo(gtr);
+		
+		Nissan.setNissanGtr(gtr);
+		
+		ex.persist(Nissan);
+		
+		
+	}
+
+}
